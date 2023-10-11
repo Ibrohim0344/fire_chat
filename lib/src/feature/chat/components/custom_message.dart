@@ -15,16 +15,16 @@ class CustomMessage extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Color(
-          messageModel.uid == 0 ? 0xFF186F65 : 0xFF6499E9,
+          messageModel.uid == 1 ? 0xFF186F65 : 0xFF6499E9,
         ),
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(15),
           bottomLeft: Radius.circular(
-            messageModel.uid == 1 ? 0 : 15,
+            messageModel.uid == 0 ? 0 : 15,
           ),
           topRight: const Radius.circular(15),
           bottomRight: Radius.circular(
-            messageModel.uid == 0 ? 0 : 15,
+            messageModel.uid == 1 ? 0 : 15,
           ),
         ),
       ),

@@ -8,7 +8,7 @@ class MessageModel {
   MessageModel({
     required this.message,
     this.chatId = "",
-    this.uid = 0,
+    this.uid = 1,
     this.isEdited = false,
     final DateTime? wroteAt,
   }) : wroteAt = wroteAt ?? DateTime.now();

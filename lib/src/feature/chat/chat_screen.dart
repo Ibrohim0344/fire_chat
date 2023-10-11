@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/models/message_model.dart';
+import '../../common/service/auth_service.dart';
 import 'components/custom_message.dart';
 import 'controller/chat_provider.dart';
 import 'mixin/chat_mixin.dart';
@@ -21,6 +22,43 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
     final defineChat = context.watch<ChatProvider>().defineChat;
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Are you sure"),
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("No"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              AuthService.signOut();
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Yes"),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.red,
+              ))
+        ],
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -51,7 +89,7 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                       horizontal: 5,
                     ),
                     child: Align(
-                      alignment: messageModel.uid == 0
+                      alignment: messageModel.uid == 1
                           ? Alignment.bottomRight
                           : Alignment.bottomLeft,
                       child: GestureDetector(
