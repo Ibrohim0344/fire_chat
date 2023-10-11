@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBaNxu-vJIc0LBP0Krbq1RiEUByy3gmi9c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>160251355917</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ipg.elegant.fireChat</string>
+	<key>PROJECT_ID</key>
+	<string>firechat-1958e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>firechat-1958e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:160251355917:ios:8f2fd6f7af617b67c10644</string>
+</dict>
+</plist>
