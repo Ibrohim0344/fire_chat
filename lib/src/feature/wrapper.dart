@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../common/models/user_model.dart';
 import 'auth/register.dart';
-import 'chat/chat_screen.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({super.key});
