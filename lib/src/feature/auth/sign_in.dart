@@ -4,7 +4,6 @@ import '../../common/service/auth_service.dart';
 import '../chat/chat_screen.dart';
 import 'components/custom_text_field.dart';
 import 'components/loading.dart';
-import 'register.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -65,25 +64,6 @@ class _SignInState extends State<SignIn> {
               backgroundColor: Colors.brown,
               elevation: 0,
               title: const Text("Sign in to Crew Brew"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Register(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Register",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-              ],
             ),
             body: Form(
               key: _formKey,
@@ -122,6 +102,7 @@ class _SignInState extends State<SignIn> {
                             passwordController.text,
                             emailController.text,
                           );
+
                           if (result != null && mounted) {
                             Navigator.pushReplacement(
                               context,

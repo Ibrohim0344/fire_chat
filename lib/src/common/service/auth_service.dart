@@ -30,7 +30,9 @@ abstract class AuthService {
 
   //sing in with email and password
   static Future<UserModel?> signInWithEmailAndPassword(
-      String password, String email) async {
+    String password,
+    String email,
+  ) async {
     try {
       final result = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -46,7 +48,9 @@ abstract class AuthService {
 
   //register with email
   static Future<UserModel?> registerWithEmailAndPassword(
-      String password, String email) async {
+    String password,
+    String email,
+  ) async {
     try {
       final result = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -68,4 +72,6 @@ abstract class AuthService {
       debugPrint(e.toString());
     }
   }
+
+// static Stream getAllUsers() {}
 }
