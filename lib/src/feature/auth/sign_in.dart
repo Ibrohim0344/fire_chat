@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common/service/auth_service.dart';
+import '../chat/chat_screen.dart';
 import 'components/custom_text_field.dart';
 import 'components/loading.dart';
 import 'register.dart';
@@ -121,9 +122,16 @@ class _SignInState extends State<SignIn> {
                             passwordController.text,
                             emailController.text,
                           );
-                          if (result == null) {
+                          if (result != null && mounted) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ChatScreen(),
+                              ),
+                            );
+                          } else {
                             setState(() {
-                              loading = false;
+                              loading = true;
                               emailValidation =
                                   "Could not sign in with those credentials";
                             });
