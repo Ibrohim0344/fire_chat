@@ -4,21 +4,21 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     required this.controller,
     required this.hintText,
-    this.obsecure = false,
+    this.obscure = false,
     this.validator,
     super.key,
   });
 
   final TextEditingController controller;
   final String hintText;
-  final bool obsecure;
+  final bool obscure;
   final String? Function(String? value)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: validator,
-      obscureText: obsecure,
+      obscureText: obscure,
       cursorColor: Colors.brown,
       controller: controller,
       decoration: InputDecoration(

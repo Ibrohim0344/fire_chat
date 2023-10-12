@@ -28,7 +28,7 @@ mixin ChatMixin on State<ChatScreen> {
       message: controller.text.trim(),
     );
 
-    repository.writeMessage(message);
+    if (controller.text.isNotEmpty) repository.writeMessage(message);
     controller.text = "";
   }
 

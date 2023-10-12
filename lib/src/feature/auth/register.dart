@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
                       validator: validatePassword,
                       controller: passwordController,
                       hintText: "Write Your password",
-                      obsecure: true,
+                      obscure: true,
                     ),
                     const SizedBox(height: 15),
                     FilledButton(

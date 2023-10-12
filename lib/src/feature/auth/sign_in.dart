@@ -104,7 +104,7 @@ class _SignInState extends State<SignIn> {
                       validator: validatePassword,
                       controller: passwordController,
                       hintText: "Write Your password",
-                      obsecure: true,
+                      obscure: true,
                     ),
                     const SizedBox(height: 15),
                     FilledButton(

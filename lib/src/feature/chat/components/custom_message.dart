@@ -58,7 +58,7 @@ class CustomMessage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "${messageModel.wroteAt.hour}:${messageModel.wroteAt.minute}",
+                    "${(messageModel.wroteAt.hour).toString().padLeft(2, "0")}:${(messageModel.wroteAt.minute).toString().padLeft(2, "0")}",
                     style: const TextStyle(
                       fontSize: 8,
                       color: Colors.white,
