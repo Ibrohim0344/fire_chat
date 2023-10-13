@@ -51,6 +51,8 @@ abstract class AuthService {
     }
   }
 
+  static User? get currentUser => _auth.currentUser;
+
   //register with email
   static Future<UserModel?> registerWithEmailAndPassword(
     String password,

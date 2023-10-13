@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../common/constants/app_colors.dart';
+
 class Loading extends StatelessWidget {
   const Loading({super.key});
 
@@ -11,7 +13,7 @@ class Loading extends StatelessWidget {
         color: Colors.white,
         child: Center(
           child: SpinKitChasingDots(
-            color: Colors.brown,
+            color:AppColors.mainColor,
             size: 50,
           ),
         ),

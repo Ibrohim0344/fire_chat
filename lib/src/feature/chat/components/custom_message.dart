@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/constants/app_colors.dart';
 import '../../../common/models/message_model.dart';
+import '../../../common/service/auth_service.dart';
 
 class CustomMessage extends StatelessWidget {
   final MessageModel messageModel;
@@ -15,15 +16,17 @@ class CustomMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: messageModel.uid == 1 ? AppColors.leftChat : AppColors.rightChat,
+        color: messageModel.uid == AuthService.currentUser!.uid
+            ? AppColors.leftChat
+            : AppColors.rightChat,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(15),
           bottomLeft: Radius.circular(
-            messageModel.uid == 0 ? 0 : 15,
+            messageModel.uid == AuthService.currentUser!.uid ? 0 : 15,
           ),
           topRight: const Radius.circular(15),
           bottomRight: Radius.circular(
-            messageModel.uid == 1 ? 0 : 15,
+            messageModel.uid == AuthService.currentUser!.uid ? 0 : 15,
           ),
         ),
       ),

@@ -4,9 +4,11 @@ import '../../common/constants/app_colors.dart';
 import '../../common/models/user_model.dart';
 import '../../common/service/auth_service.dart';
 
+import '../chat/data/user_repository.dart';
 import 'components/custom_text_field.dart';
 import 'components/loading.dart';
 import 'sign_in.dart';
+
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -19,6 +21,7 @@ class _RegisterState extends State<Register> {
   late final TextEditingController nameController;
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
+  late final UserRepository _userRepository;
   String emailValidation = "";
   bool loading = false;
 
@@ -29,6 +32,7 @@ class _RegisterState extends State<Register> {
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    _userRepository = const UserRepositoryImp();
     super.initState();
   }
 
@@ -143,6 +147,10 @@ class _RegisterState extends State<Register> {
                                 loading = false;
                                 emailValidation = "Please supply valid email";
                               });
+                            } else {
+                            
+                              print(AuthService.currentUser?.uid);
+                              _userRepository.addUser(result);
                             }
                           }
                         },

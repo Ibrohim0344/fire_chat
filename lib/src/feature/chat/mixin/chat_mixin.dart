@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/models/message_model.dart';
+import '../../../common/service/auth_service.dart';
 import '../chat_screen.dart';
 import '../controller/chat_provider.dart';
 import '../data/chat_repository.dart';
@@ -23,12 +24,17 @@ mixin ChatMixin on State<ChatScreen> {
     super.dispose();
   }
 
-  void writeMessage() {
+  void writeMessage(String chatIdBetween) {
     final message = MessageModel(
       message: controller.text.trim(),
+      uid: AuthService.currentUser!.uid,
     );
-
-    if (controller.text.isNotEmpty) repository.writeMessage(message);
+    if (controller.text.isNotEmpty) {
+      repository.writeMessage(
+        message,
+        chatIdBetween,
+      );
+    }
     controller.text = "";
   }
 
@@ -43,6 +49,7 @@ mixin ChatMixin on State<ChatScreen> {
 
   void updateMessage() {
     final message = MessageModel(
+      uid: AuthService.currentUser!.uid,
       chatId:
           Provider.of<ChatProvider>(context, listen: false).defineChat!.chatId,
       message: controller.text,

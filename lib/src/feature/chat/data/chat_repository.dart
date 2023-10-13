@@ -7,11 +7,11 @@ import '../../../common/models/message_model.dart';
 import '../../../common/service/database_service.dart';
 
 abstract interface class ChatRepository {
-  DatabaseReference queryChat();
+  DatabaseReference queryChat(String chatIdBetween);
 
   Stream<MessageModel> getAllMessage();
 
-  Future<void> writeMessage(MessageModel message);
+  Future<void> writeMessage(MessageModel message, String chatIdBetween);
 
   Future<void> deleteMessage(String id);
 
@@ -24,8 +24,12 @@ class IChatRepository implements ChatRepository {
   IChatRepository() : _service = const DatabaseService();
 
   @override
-  Future<void> writeMessage(MessageModel message) =>
-      _service.create(dataPath: ApiConsts.usersPath, json: message.toJson());
+  Future<void> writeMessage(MessageModel message, String chatIdBetween) =>
+      _service.create(
+        dataPath: ApiConsts.allMessages,
+        json: message.toJson(),
+        chatIdBetween: chatIdBetween,
+      );
 
   @override
   Future<void> updateMessage(MessageModel message) => _service.update(
@@ -36,7 +40,7 @@ class IChatRepository implements ChatRepository {
 
   @override
   Future<void> deleteMessage(String id) =>
-      _service.delete(dataPath: ApiConsts.usersPath, id: id);
+      _service.delete(dataPath: ApiConsts.allMessages, id: id);
 
   @override
   Stream<MessageModel> getAllMessage() =>
@@ -53,5 +57,5 @@ class IChatRepository implements ChatRepository {
       );
 
   @override
-  DatabaseReference queryChat() => _service.queryFromPath(ApiConsts.usersPath);
+  DatabaseReference queryChat(String chatIdBetween) => _service.queryFromPath("${ApiConsts.allMessages}/$chatIdBetween");
 }

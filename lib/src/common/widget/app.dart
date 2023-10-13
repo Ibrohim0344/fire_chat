@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../feature/auth/components/loading.dart';
 import '../../feature/auth/register.dart';
-import '../../feature/chat/chat_screen.dart';
 import '../../feature/chat/controller/chat_provider.dart';
+import '../../feature/home/home_screen.dart';
 import '../models/user_model.dart';
 import '../service/auth_service.dart';
 
@@ -31,7 +31,7 @@ class App extends StatelessWidget {
               stream: AuthService.user,
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data != null) {
-                  return const ChatScreen();
+                  return const HomeScreen();
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return const Loading();

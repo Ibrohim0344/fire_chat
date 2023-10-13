@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common/service/auth_service.dart';
-import '../chat/chat_screen.dart';
+import '../home/home_screen.dart';
 import 'components/custom_text_field.dart';
 import 'components/loading.dart';
 
@@ -107,7 +107,7 @@ class _SignInState extends State<SignIn> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ChatScreen(),
+                                builder: (context) =>  const HomeScreen(),
                               ),
                             );
                           } else {

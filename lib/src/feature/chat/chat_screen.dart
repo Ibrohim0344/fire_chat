@@ -11,7 +11,11 @@ import 'controller/chat_provider.dart';
 import 'mixin/chat_mixin.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  final String uid;
+  const ChatScreen({
+    required this.uid,
+    super.key,
+  });
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -24,42 +28,9 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
 
     return Scaffold(
       appBar: AppBar(
-        leading: null,
-        actions: [
-          IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text("Are you sure"),
-                    actions: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("No"),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              AuthService.signOut();
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Yes"),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: AppColors.red,
-              ))
-        ],
+        leading: const BackButton(
+          color: AppColors.secondaryColor,
+        ),
       ),
       body: SafeArea(
         child: Stack(
@@ -67,7 +38,7 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
             Padding(
               padding: const EdgeInsets.only(bottom: 90),
               child: FirebaseAnimatedList(
-                query: repository.queryChat(),
+                query: repository.queryChat(widget.uid),
                 reverse: true,
                 sort: (a, b) {
                   final aValue = MessageModel.fromJson(
@@ -91,9 +62,10 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                       horizontal: 5,
                     ),
                     child: Align(
-                      alignment: messageModel.uid == 1
-                          ? Alignment.bottomRight
-                          : Alignment.bottomLeft,
+                      alignment:
+                          messageModel.uid == AuthService.currentUser!.uid
+                              ? Alignment.bottomRight
+                              : Alignment.bottomLeft,
                       child: GestureDetector(
                         onLongPress: () {
                           showModalBottomSheet(
@@ -162,9 +134,10 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                               borderSide: BorderSide.none,
                             ),
                             suffixIcon: IconButton(
-                              onPressed: defineChat != null
-                                  ? updateMessage
-                                  : writeMessage,
+                              // onPressed: defineChat != null
+                              //     ? updateMessage
+                              //     : writeMessage,
+                              onPressed: () => writeMessage(widget.uid),
                               icon: Icon(
                                 defineChat != null
                                     ? Icons.done_outline_rounded
