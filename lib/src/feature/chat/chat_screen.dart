@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/constants/app_colors.dart';
 import '../../common/models/message_model.dart';
 import '../../common/service/auth_service.dart';
 import 'components/custom_message.dart';
@@ -56,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
               },
               icon: const Icon(
                 Icons.logout,
-                color: Colors.red,
+                color: AppColors.red,
               ))
         ],
       ),
@@ -96,7 +97,7 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                       child: GestureDetector(
                         onLongPress: () {
                           showModalBottomSheet(
-                            backgroundColor: const Color(0xFFD2E0FB),
+                            backgroundColor: AppColors.mainColor,
                             context: context,
                             builder: (context) {
                               return Padding(
@@ -142,7 +143,7 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                   width: double.infinity,
                   height: 90,
                   child: ColoredBox(
-                    color: const Color(0xFFD2E0FB),
+                    color: AppColors.mainColor,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -152,7 +153,7 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                         child: TextField(
                           controller: controller,
                           decoration: InputDecoration(
-                            fillColor: const Color(0xFFFFFFFF),
+                            fillColor: AppColors.white,
                             filled: true,
                             border: const OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -169,7 +170,7 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                                     ? Icons.done_outline_rounded
                                     : Icons.send,
                               ),
-                              color: const Color(0xFF5B729F),
+                              color: AppColors.secondaryColor,
                             ),
                           ),
                         ),

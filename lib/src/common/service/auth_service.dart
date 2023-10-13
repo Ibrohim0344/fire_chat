@@ -8,7 +8,12 @@ abstract class AuthService {
 
   //create user from FirebaseUser
   static UserModel? _userFromFirebaseUser(User? user) {
-    return user != null ? UserModel(uid: user.uid) : null;
+    return user != null
+        ? UserModel(
+            uid: user.uid,
+            username: user.displayName,
+          )
+        : null;
   }
 
   //sign in anonymous
@@ -50,13 +55,18 @@ abstract class AuthService {
   static Future<UserModel?> registerWithEmailAndPassword(
     String password,
     String email,
+    String username,
   ) async {
     try {
-      final result = await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      User? user = result.user;
+      await result.user!.updateDisplayName(username);
+      result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      if (result.user == null) return null;
+      User user = result.user!;
       return _userFromFirebaseUser(user);
     } catch (e) {
       debugPrint(e.toString());

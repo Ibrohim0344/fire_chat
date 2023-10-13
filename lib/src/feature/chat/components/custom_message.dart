@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../common/constants/app_colors.dart';
 import '../../../common/models/message_model.dart';
 
 class CustomMessage extends StatelessWidget {
@@ -14,9 +15,7 @@ class CustomMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Color(
-          messageModel.uid == 1 ? 0xFF186F65 : 0xFF6499E9,
-        ),
+        color: messageModel.uid == 1 ? AppColors.leftChat : AppColors.rightChat,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(15),
           bottomLeft: Radius.circular(
@@ -41,7 +40,7 @@ class CustomMessage extends StatelessWidget {
           children: [
             Text(
               messageModel.message,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: AppColors.white),
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -54,14 +53,14 @@ class CustomMessage extends StatelessWidget {
                     messageModel.isEdited ? "edited " : "",
                     style: const TextStyle(
                       fontSize: 8,
-                      color: Colors.white,
+                      color: AppColors.white,
                     ),
                   ),
                   Text(
                     "${(messageModel.wroteAt.hour).toString().padLeft(2, "0")}:${(messageModel.wroteAt.minute).toString().padLeft(2, "0")}",
                     style: const TextStyle(
                       fontSize: 8,
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

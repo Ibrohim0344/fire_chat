@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../common/constants/app_colors.dart';
 import '../../common/models/user_model.dart';
 import '../../common/service/auth_service.dart';
 
@@ -15,6 +16,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  late final TextEditingController nameController;
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
   String emailValidation = "";
@@ -24,6 +26,7 @@ class _RegisterState extends State<Register> {
 
   @override
   void initState() {
+    nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
     super.initState();
@@ -31,6 +34,7 @@ class _RegisterState extends State<Register> {
 
   @override
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -50,16 +54,25 @@ class _RegisterState extends State<Register> {
     return null;
   }
 
+  String? validateName(String? value) {
+    if (value != null && value.isEmpty) {
+      return "Username must be at least 1 character";
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return loading
         ? const Loading()
         : Scaffold(
-            backgroundColor: Colors.brown.shade100,
             appBar: AppBar(
-              backgroundColor: Colors.brown,
+              backgroundColor: AppColors.secondaryColor,
               elevation: 0,
-              title: const Text("Sign up to Crew Brew"),
+              title: const Text(
+                "Sign up to Fire Chat",
+                style: TextStyle(color: AppColors.white),
+              ),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -73,7 +86,7 @@ class _RegisterState extends State<Register> {
                   child: const Text(
                     "Sign in",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.white,
                     ),
                   ),
                 ),
@@ -87,8 +100,14 @@ class _RegisterState extends State<Register> {
                   vertical: 15,
                   horizontal: 15,
                 ),
-                child: Column(
+                child: ListView(
                   children: [
+                    const SizedBox(height: 20),
+                    CustomTextFormField(
+                      validator: validateName,
+                      controller: nameController,
+                      hintText: "Write your username",
+                    ),
                     const SizedBox(height: 20),
                     CustomTextFormField(
                       validator: validateEmail,
@@ -103,30 +122,33 @@ class _RegisterState extends State<Register> {
                       obscure: true,
                     ),
                     const SizedBox(height: 15),
-                    FilledButton(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Colors.brown,
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            loading = true;
-                          });
-                          final UserModel? result =
-                              await AuthService.registerWithEmailAndPassword(
-                            passwordController.text,
-                            emailController.text,
-                          );
-                          if (result == null) {
+                    Center(
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: AppColors.secondaryColor,
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
                             setState(() {
-                              loading = false;
-                              emailValidation = "Please supply valid email";
+                              loading = true;
                             });
+                            final UserModel? result =
+                                await AuthService.registerWithEmailAndPassword(
+                              passwordController.text.trim(),
+                              emailController.text.trim(),
+                              nameController.text.trim(),
+                            );
+                            if (result == null) {
+                              setState(() {
+                                loading = false;
+                                emailValidation = "Please supply valid email";
+                              });
+                            }
                           }
-                        }
-                      },
-                      child: const Text(
-                        "Register",
+                        },
+                        child: const Text(
+                          "Register",
+                        ),
                       ),
                     ),
                     const SizedBox(height: 15),
