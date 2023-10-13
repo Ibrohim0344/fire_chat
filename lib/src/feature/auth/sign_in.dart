@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../common/constants/app_colors.dart';
 import '../../common/service/auth_service.dart';
 import '../home/home_screen.dart';
 import 'components/custom_text_field.dart';
@@ -53,15 +54,14 @@ class _SignInState extends State<SignIn> {
     return loading
         ? const Loading()
         : Scaffold(
-            backgroundColor: Colors.brown.shade100,
             appBar: AppBar(
+              backgroundColor: AppColors.secondaryColor,
               leading: BackButton(
-                color: Colors.white,
+                color: AppColors.mainColor,
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
-              backgroundColor: Colors.brown,
               elevation: 0,
               title: const Text("Sign in to Crew Brew"),
             ),
@@ -90,7 +90,7 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(height: 15),
                     FilledButton(
                       style: FilledButton.styleFrom(
-                        backgroundColor: Colors.brown,
+                        backgroundColor: AppColors.secondaryColor,
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
@@ -107,15 +107,17 @@ class _SignInState extends State<SignIn> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>  const HomeScreen(),
+                                builder: (context) => const HomeScreen(),
                               ),
                             );
                           } else {
-                            setState(() {
-                              loading = true;
-                              emailValidation =
-                                  "Could not sign in with those credentials";
-                            });
+                            setState(
+                              () {
+                                loading = true;
+                                emailValidation =
+                                    "Could not sign in with those credentials";
+                              },
+                            );
                           }
                         }
                       },

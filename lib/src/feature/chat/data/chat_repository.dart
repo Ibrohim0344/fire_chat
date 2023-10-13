@@ -16,6 +16,8 @@ abstract interface class ChatRepository {
   Future<void> deleteMessage(String id);
 
   Future<void> updateMessage(MessageModel message);
+
+  Future<bool> isWrote(String path);
 }
 
 class IChatRepository implements ChatRepository {
@@ -57,5 +59,11 @@ class IChatRepository implements ChatRepository {
       );
 
   @override
-  DatabaseReference queryChat(String chatIdBetween) => _service.queryFromPath("${ApiConsts.allMessages}/$chatIdBetween");
+  DatabaseReference queryChat(String chatIdBetween) =>
+      _service.queryFromPath("${ApiConsts.allMessages}/$chatIdBetween");
+
+  @override
+  Future<bool> isWrote(String path) async {
+    return await _service.checkUsers(path);
+  }
 }

@@ -39,4 +39,10 @@ class DatabaseService {
 
   Future<void> delete({required String dataPath, required String id}) =>
       _database.ref(dataPath).child(id).remove();
+
+  Future<bool> checkUsers(String path) async {
+    final snapshot = await _database.ref(path).get();
+    if (snapshot.value == null) return false;
+    return true;
+  }
 }
