@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/models/message_model.dart';
@@ -10,6 +13,7 @@ import '../data/chat_repository.dart';
 mixin ChatMixin on State<ChatScreen> {
   late final TextEditingController controller;
   late final ChatRepository repository;
+  File? file;
 
   @override
   void initState() {
@@ -57,7 +61,7 @@ mixin ChatMixin on State<ChatScreen> {
       wroteAt:
           Provider.of<ChatProvider>(context, listen: false).defineChat!.wroteAt,
     );
-    repository.updateMessage(message);
+    repository.updateMessage(message: message, chatId: widget.uid);
     context.read<ChatProvider>().updateDefineChat();
     controller.clear();
   }
@@ -66,4 +70,23 @@ mixin ChatMixin on State<ChatScreen> {
     repository.deleteMessage(id);
     Navigator.pop(context);
   }
+
+  Future<void> getMedia(MediaSource mediaSource) async {
+    final pickedImage = await ImagePicker().pickImage(
+      source: mediaSource.name == "camera"
+          ? ImageSource.camera
+          : ImageSource.gallery,
+    );
+
+    if (pickedImage != null) file = File(pickedImage.path);
+  }
+}
+
+enum MediaSource {
+  camera("camera"),
+  gallery("gallery");
+
+  const MediaSource(this.mediaSource);
+
+  final String mediaSource;
 }

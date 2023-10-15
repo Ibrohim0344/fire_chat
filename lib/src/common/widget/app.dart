@@ -20,7 +20,7 @@ class App extends StatelessWidget {
           initialData: null,
           value: AuthService.user,
           child: MaterialApp(
-            title: "Fire chat",
+            title: "Fire Chat",
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               splashFactory: NoSplash.splashFactory,

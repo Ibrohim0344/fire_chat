@@ -15,7 +15,8 @@ abstract interface class ChatRepository {
 
   Future<void> deleteMessage(String id);
 
-  Future<void> updateMessage(MessageModel message);
+  Future<void> updateMessage(
+      {required MessageModel message, required String chatId});
 
   Future<bool> isWrote(String path);
 }
@@ -34,8 +35,12 @@ class IChatRepository implements ChatRepository {
       );
 
   @override
-  Future<void> updateMessage(MessageModel message) => _service.update(
-        dataPath: ApiConsts.usersPath,
+  Future<void> updateMessage({
+    required MessageModel message,
+    required String chatId,
+  }) =>
+      _service.update(
+        dataPath: "${ApiConsts.allMessages}/$chatId",
         id: message.chatId,
         json: message.toJson(),
       );

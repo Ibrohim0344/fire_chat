@@ -12,6 +12,7 @@ import 'mixin/chat_mixin.dart';
 
 class ChatScreen extends StatefulWidget {
   final String uid;
+
   const ChatScreen({
     required this.uid,
     super.key,
@@ -87,8 +88,8 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                                       ),
                                       const Spacer(),
                                       ListTile(
-                                        onTap: () =>
-                                            deleteMessage(messageModel.chatId),
+                                        onTap: () => deleteMessage(
+                                            "${widget.uid}/${messageModel.chatId}"),
                                         title: const Text("Delete"),
                                         trailing: const Icon(
                                           CupertinoIcons.delete_solid,
@@ -133,11 +134,73 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
                               ),
                               borderSide: BorderSide.none,
                             ),
+                            prefixIcon: IconButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  backgroundColor: AppColors.secondaryColor,
+                                  constraints: const BoxConstraints(
+                                    maxHeight: 150,
+                                  ),
+                                  context: context,
+                                  builder: (context) => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () =>
+                                                MediaSource.gallery,
+                                            icon: const Icon(
+                                              Icons.camera,
+                                              size: 45,
+                                              color: AppColors.white,
+                                            ),
+                                          ),
+                                          const Text(
+                                            "Gallery",
+                                            style: TextStyle(
+                                              color: AppColors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () =>
+                                                getMedia(MediaSource.camera),
+                                            icon: const Icon(
+                                              Icons.camera_alt,
+                                              size: 45,
+                                              color: AppColors.white,
+                                            ),
+                                          ),
+                                          const Text(
+                                            "Camera",
+                                            style: TextStyle(
+                                              color: AppColors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.image,
+                                color: AppColors.secondaryColor,
+                              ),
+                            ),
                             suffixIcon: IconButton(
-                              // onPressed: defineChat != null
-                              //     ? updateMessage
-                              //     : writeMessage,
-                              onPressed: () => writeMessage(widget.uid),
+                              onPressed: () => defineChat == null
+                                  ? writeMessage(widget.uid)
+                                  : updateMessage(),
                               icon: Icon(
                                 defineChat != null
                                     ? Icons.done_outline_rounded

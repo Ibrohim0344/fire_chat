@@ -2,6 +2,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/constants/api_constants.dart';
+import '../../common/constants/app_colors.dart';
 import '../../common/models/user_model.dart';
 import '../../common/service/auth_service.dart';
 import '../chat/chat_screen.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    chatRepository =  IChatRepository();
+    chatRepository = IChatRepository();
     userRepository = const UserRepositoryImp();
     super.initState();
   }
@@ -71,21 +72,35 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size(
-            double.infinity,
-            50,
-          ),
-          child: CustomLogOutAppBar()),
+        preferredSize: Size(
+          double.infinity,
+          50,
+        ),
+        child: CustomAppBar(),
+      ),
       body: FirebaseAnimatedList(
         query: userRepository.queryUsers(),
         itemBuilder: (context, snapshot, animation, index) {
           final user = UserModel.fromMap(
               Map<String, Object?>.from(snapshot.value as Map));
-          return ListTile(
-            onTap: () => openChatScreen(user.uid),
-            title: Text(
-              user.username ?? "",
-            ),
+          return Column(
+            children: [
+              const Divider(
+                color: AppColors.secondaryColor,
+                indent: 18,
+                endIndent: 18,
+              ),
+              ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.primaries[index],
+                ),
+                onTap: () => openChatScreen(user.uid),
+                title: Text(
+                  user.username ?? "",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+            ],
           );
         },
       ),

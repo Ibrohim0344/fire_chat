@@ -17,12 +17,12 @@ class CustomMessage extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: messageModel.uid == AuthService.currentUser!.uid
-            ? AppColors.leftChat
-            : AppColors.rightChat,
+            ? AppColors.rightChat
+            : AppColors.leftChat,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(15),
           bottomLeft: Radius.circular(
-            messageModel.uid == AuthService.currentUser!.uid ? 0 : 15,
+            messageModel.uid == AuthService.currentUser!.uid ? 15 : 0,
           ),
           topRight: const Radius.circular(15),
           bottomRight: Radius.circular(
@@ -38,12 +38,13 @@ class CustomMessage extends StatelessWidget {
           bottom: 5,
         ),
         child: Row(
-          // crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               messageModel.message,
-              style: const TextStyle(color: AppColors.white),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.white,
+                  ),
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -54,18 +55,16 @@ class CustomMessage extends StatelessWidget {
                 children: [
                   Text(
                     messageModel.isEdited ? "edited " : "",
-                    style: const TextStyle(
-                      fontSize: 8,
-                      color: AppColors.white,
-                    ),
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
                   ),
                   Text(
                     "${(messageModel.wroteAt.hour).toString().padLeft(2, "0")}:${(messageModel.wroteAt.minute).toString().padLeft(2, "0")}",
-                    style: const TextStyle(
-                      fontSize: 8,
-                      color: AppColors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: AppColors.white,
+                        ),
                   ),
                 ],
               ),

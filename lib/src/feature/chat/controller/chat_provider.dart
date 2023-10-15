@@ -7,7 +7,7 @@ class ChatProvider extends ChangeNotifier {
 
   void updateDefineChat() {
     defineChat = null;
-    print("defineChat: $defineChat");
+    // print("defineChat: $defineChat");
     notifyListeners();
   }
 

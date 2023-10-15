@@ -63,7 +63,10 @@ class _SignInState extends State<SignIn> {
                 },
               ),
               elevation: 0,
-              title: const Text("Sign in to Crew Brew"),
+              title: const Text(
+                "Sign in to Crew Brew",
+                style: TextStyle(color: AppColors.white),
+              ),
             ),
             body: Form(
               key: _formKey,
@@ -99,8 +102,8 @@ class _SignInState extends State<SignIn> {
                           });
                           final result =
                               await AuthService.signInWithEmailAndPassword(
-                            passwordController.text,
-                            emailController.text,
+                            passwordController.text.trim(),
+                            emailController.text.trim(),
                           );
 
                           if (result != null && mounted) {
@@ -113,7 +116,7 @@ class _SignInState extends State<SignIn> {
                           } else {
                             setState(
                               () {
-                                loading = true;
+                                loading = false;
                                 emailValidation =
                                     "Could not sign in with those credentials";
                               },
