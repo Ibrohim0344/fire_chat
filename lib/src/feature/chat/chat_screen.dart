@@ -12,9 +12,11 @@ import 'mixin/chat_mixin.dart';
 
 class ChatScreen extends StatefulWidget {
   final String uid;
+  final String username;
 
   const ChatScreen({
     required this.uid,
+    required this.username,
     super.key,
   });
 
@@ -28,10 +30,19 @@ class _ChatScreenState extends State<ChatScreen> with ChatMixin {
     final defineChat = context.watch<ChatProvider>().defineChat;
 
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
+        backgroundColor: AppColors.mainColor,
         leading: const BackButton(
           color: AppColors.secondaryColor,
         ),
+        title: Text(
+          widget.username,
+          style: TextStyle(
+            color: AppColors.secondaryColor,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Stack(

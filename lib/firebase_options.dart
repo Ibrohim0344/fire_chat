@@ -52,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '160251355917',
     projectId: 'firechat-1958e',
     authDomain: 'firechat-1958e.firebaseapp.com',
+    databaseURL: 'https://firechat-1958e-default-rtdb.firebaseio.com',
     storageBucket: 'firechat-1958e.appspot.com',
     measurementId: 'G-MV6NDB8ET1',
   );
@@ -61,6 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:160251355917:android:09117bd544b36860c10644',
     messagingSenderId: '160251355917',
     projectId: 'firechat-1958e',
+    databaseURL: 'https://firechat-1958e-default-rtdb.firebaseio.com',
     storageBucket: 'firechat-1958e.appspot.com',
   );
 
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:160251355917:ios:8f2fd6f7af617b67c10644',
     messagingSenderId: '160251355917',
     projectId: 'firechat-1958e',
+    databaseURL: 'https://firechat-1958e-default-rtdb.firebaseio.com',
     storageBucket: 'firechat-1958e.appspot.com',
     iosBundleId: 'ipg.elegant.fireChat',
   );

@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void openChatScreen(String uid) async {
+  void openChatScreen(String uid, String username) async {
     //myUserId+newId
     String chatIdBetween = "${AuthService.currentUser!.uid}$uid";
     bool isThere =
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
-            return ChatScreen(uid: chatIdBetween);
+            return ChatScreen(uid: chatIdBetween, username: username);
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(1, 0);
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: CircleAvatar(
                   backgroundColor: Colors.primaries[index],
                 ),
-                onTap: () => openChatScreen(user.uid),
+                onTap: () => openChatScreen(user.uid, user.username ?? "user"),
                 title: Text(
                   user.username ?? "",
                   style: Theme.of(context).textTheme.titleLarge,
